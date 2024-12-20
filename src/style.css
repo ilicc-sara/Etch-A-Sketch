@@ -8,3 +8,38 @@ body {
   background-color: black;
   color: white;
 }
+
+.display {
+  margin: 5vh auto;
+  text-align: center;
+  width: 1000px;
+  background-color: darkred;
+  display: grid;
+  grid-template-rows: 1fr 4fr;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+button {
+  width: 120px;
+}
+
+.board-container {
+  height: 70vh;
+  width: 100%;
+  background-color: lightgreen;
+  display: grid;
+  grid-template-columns: 16;
+  grid-template-rows: 16;
+}
