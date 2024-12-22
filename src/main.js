@@ -2,13 +2,13 @@
 import "./style.css";
 
 const inputColorEl = document.querySelector(".choose-color");
-
 const boardContainer = document.querySelector(".board-container");
-
 const colorModeBtn = document.querySelector(".color-mode");
 const randomModeBtn = document.querySelector(".random-mode");
 const eraserBtn = document.querySelector(".eraser");
 const clearBtn = document.querySelector(".clear");
+
+const boardEl = document.querySelector(".board-container");
 
 const boxes = document.querySelectorAll(".box");
 
@@ -26,15 +26,21 @@ const sketcher = function () {
   let color = "red";
 
   const colorMode = () => (color = inputColorEl.value);
-
   const randomMode = () => (color = randomColor());
-
   const eraser = () => (color = "white");
-
   return { colorMode, randomMode, eraser };
 };
 
 const sketch = sketcher();
+
+function createSquareGrid(num) {
+  for (let i = 0; i < num; i++) {
+    let square = document.createElement("div");
+    boardEl.appendChild(square).className = "box";
+  }
+}
+
+createSquareGrid(256);
 
 colorModeBtn.addEventListener("click", function () {
   boardContainer.addEventListener("mouseover", function (e) {
