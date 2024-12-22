@@ -7,13 +7,13 @@ const colorModeBtn = document.querySelector(".color-mode");
 const randomModeBtn = document.querySelector(".random-mode");
 const eraserBtn = document.querySelector(".eraser");
 const clearBtn = document.querySelector(".clear");
+const text = document.querySelector(".text");
 
 const boardEl = document.querySelector(".board-container");
 
-const boxes = document.querySelectorAll(".box");
-
 inputColorEl.addEventListener("input", function () {
   console.log(inputColorEl.value);
+  text.style.color = inputColorEl.value;
 });
 
 const randomNum = (min, max) =>
@@ -37,6 +37,9 @@ function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
     let square = document.createElement("div");
     boardEl.appendChild(square).className = "box";
+    // square.addEventListener("mouseenter", function (e) {
+    //   e.target.style.backgroundColor = sketch.colorMode();
+    // });
   }
 }
 
@@ -44,27 +47,23 @@ createSquareGrid(256);
 
 colorModeBtn.addEventListener("click", function () {
   boardContainer.addEventListener("mouseover", function (e) {
-    console.log((e.target.style.backgroundColor = sketch.colorMode()));
-    // console.log((e.target.style.backgroundColor = sketch.randomMode()));
-    // console.log((e.target.style.backgroundColor = sketch.eraser()));
+    e.target.style.backgroundColor = sketch.colorMode();
   });
 });
 
 randomModeBtn.addEventListener("click", function () {
   boardContainer.addEventListener("mouseover", function (e) {
-    // console.log((e.target.style.backgroundColor = sketch.colorMode()));
-    console.log((e.target.style.backgroundColor = sketch.randomMode()));
-    // console.log((e.target.style.backgroundColor = sketch.eraser()));
+    e.target.style.backgroundColor = sketch.randomMode();
   });
 });
 
 eraserBtn.addEventListener("click", function () {
   boardContainer.addEventListener("mouseover", function (e) {
-    // console.log((e.target.style.backgroundColor = sketch.colorMode()));
-    // console.log((e.target.style.backgroundColor = sketch.randomMode()));
-    console.log((e.target.style.backgroundColor = sketch.eraser()));
+    e.target.style.backgroundColor = sketch.eraser();
   });
 });
+
+const boxes = document.querySelectorAll(".box");
 
 clearBtn.addEventListener("click", function () {
   boxes.forEach((box) => (box.style.backgroundColor = "white"));
