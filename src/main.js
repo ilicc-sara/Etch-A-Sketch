@@ -37,30 +37,35 @@ function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
     let square = document.createElement("div");
     boardEl.appendChild(square).className = "box";
-    // square.addEventListener("mouseenter", function (e) {
-    //   e.target.style.backgroundColor = sketch.colorMode();
-    // });
+    square.addEventListener("mouseenter", function (e) {
+      //prettier-ignore
+      if (colorModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.colorMode();
+      //prettier-ignore
+      if (randomModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.randomMode();
+      //prettier-ignore
+      if (eraserBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.eraser();
+    });
   }
 }
 
 createSquareGrid(256);
 
 colorModeBtn.addEventListener("click", function () {
-  boardContainer.addEventListener("mouseover", function (e) {
-    e.target.style.backgroundColor = sketch.colorMode();
-  });
+  colorModeBtn.classList.toggle("active");
+  randomModeBtn.classList.remove("active");
+  eraserBtn.classList.remove("active");
 });
 
 randomModeBtn.addEventListener("click", function () {
-  boardContainer.addEventListener("mouseover", function (e) {
-    e.target.style.backgroundColor = sketch.randomMode();
-  });
+  randomModeBtn.classList.toggle("active");
+  colorModeBtn.classList.remove("active");
+  eraserBtn.classList.remove("active");
 });
 
 eraserBtn.addEventListener("click", function () {
-  boardContainer.addEventListener("mouseover", function (e) {
-    e.target.style.backgroundColor = sketch.eraser();
-  });
+  eraserBtn.classList.toggle("active");
+  colorModeBtn.classList.remove("active");
+  randomModeBtn.classList.remove("active");
 });
 
 const boxes = document.querySelectorAll(".box");
