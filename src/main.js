@@ -10,14 +10,6 @@ const text = document.querySelector(".text");
 
 const boardEl = document.querySelector(".board-container");
 
-inputColorEl.addEventListener("input", function () {
-  console.log(inputColorEl.value);
-  text.style.color = inputColorEl.value;
-  colorModeBtn.classList.add("active");
-  randomModeBtn.classList.remove("active");
-  eraserBtn.classList.remove("active");
-});
-
 const randomNum = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -38,17 +30,17 @@ const sketcher = function () {
 
 const sketch = sketcher();
 
+inputColorEl.addEventListener("input", function () {
+  // inputColorEl.value;
+  console.log(inputColorEl.value);
+  text.style.color = inputColorEl.value;
+  sketch.setColor(inputColorEl.value);
+});
 function createSquareGrid(num) {
   for (let i = 0; i < num; i++) {
     let square = document.createElement("div");
     boardEl.appendChild(square).className = "box";
     square.addEventListener("mouseenter", function (e) {
-      // //prettier-ignore
-      // if (colorModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.colorMode();
-      // //prettier-ignore
-      // if (randomModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.randomMode();
-      // //prettier-ignore
-      // if (eraserBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.eraser();
       e.target.style.backgroundColor = sketch.getColor();
     });
   }
@@ -58,14 +50,14 @@ function createSquareGrid(num) {
 createSquareGrid(256);
 
 colorModeBtn.addEventListener("click", function () {
-  sketch.setColor(inputColorEl.value);
+  sketch.getColor(inputColorEl.value);
 });
 
 randomModeBtn.addEventListener("click", function () {
   sketch.setColor(randomColor());
 });
 
-eraserBtn.addEventListener("click", function (e) {
+eraserBtn.addEventListener("click", function () {
   sketch.setColor("white");
 });
 
