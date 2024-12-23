@@ -2,7 +2,6 @@
 import "./style.css";
 
 const inputColorEl = document.querySelector(".choose-color");
-const boardContainer = document.querySelector(".board-container");
 const colorModeBtn = document.querySelector(".color-mode");
 const randomModeBtn = document.querySelector(".random-mode");
 const eraserBtn = document.querySelector(".eraser");
@@ -14,6 +13,9 @@ const boardEl = document.querySelector(".board-container");
 inputColorEl.addEventListener("input", function () {
   console.log(inputColorEl.value);
   text.style.color = inputColorEl.value;
+  colorModeBtn.classList.add("active");
+  randomModeBtn.classList.remove("active");
+  eraserBtn.classList.remove("active");
 });
 
 const randomNum = (min, max) =>
@@ -25,10 +27,13 @@ const randomColor = () =>
 const sketcher = function () {
   let color = "red";
 
+  const setColor = (value) => (color = value);
+  const getColor = () => color;
+
   const colorMode = () => (color = inputColorEl.value);
   const randomMode = () => (color = randomColor());
   const eraser = () => (color = "white");
-  return { colorMode, randomMode, eraser };
+  return { colorMode, randomMode, eraser, getColor, setColor };
 };
 
 const sketch = sketcher();
@@ -38,34 +43,30 @@ function createSquareGrid(num) {
     let square = document.createElement("div");
     boardEl.appendChild(square).className = "box";
     square.addEventListener("mouseenter", function (e) {
-      //prettier-ignore
-      if (colorModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.colorMode();
-      //prettier-ignore
-      if (randomModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.randomMode();
-      //prettier-ignore
-      if (eraserBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.eraser();
+      // //prettier-ignore
+      // if (colorModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.colorMode();
+      // //prettier-ignore
+      // if (randomModeBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.randomMode();
+      // //prettier-ignore
+      // if (eraserBtn.classList.contains("active")) e.target.style.backgroundColor = sketch.eraser();
+      e.target.style.backgroundColor = sketch.getColor();
     });
   }
 }
-
+// input type range
+// slusam na event "input"
 createSquareGrid(256);
 
 colorModeBtn.addEventListener("click", function () {
-  colorModeBtn.classList.toggle("active");
-  randomModeBtn.classList.remove("active");
-  eraserBtn.classList.remove("active");
+  sketch.setColor(inputColorEl.value);
 });
 
 randomModeBtn.addEventListener("click", function () {
-  randomModeBtn.classList.toggle("active");
-  colorModeBtn.classList.remove("active");
-  eraserBtn.classList.remove("active");
+  sketch.setColor(randomColor());
 });
 
-eraserBtn.addEventListener("click", function () {
-  eraserBtn.classList.toggle("active");
-  colorModeBtn.classList.remove("active");
-  randomModeBtn.classList.remove("active");
+eraserBtn.addEventListener("click", function (e) {
+  sketch.setColor("white");
 });
 
 const boxes = document.querySelectorAll(".box");
