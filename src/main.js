@@ -42,6 +42,7 @@ function createSquareGrid(num) {
     boardEl.appendChild(square).className = "box";
     square.addEventListener("mouseenter", function (e) {
       e.target.style.backgroundColor = sketch.getColor();
+      randomColor();
     });
   }
 }
@@ -50,11 +51,12 @@ function createSquareGrid(num) {
 createSquareGrid(256);
 
 colorModeBtn.addEventListener("click", function () {
-  sketch.getColor(inputColorEl.value);
+  sketch.getColor();
 });
 
 randomModeBtn.addEventListener("click", function () {
   sketch.setColor(randomColor());
+  // sketch.getColor();
 });
 
 eraserBtn.addEventListener("click", function () {
