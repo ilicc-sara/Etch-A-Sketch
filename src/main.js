@@ -22,13 +22,11 @@ const sketcher = function () {
   const setColor = (value) => (color = value);
   const getColor = () => color;
 
-  const colorMode = () => (color = inputColorEl.value);
-  const randomMode = () => (color = randomColor());
-  const eraser = () => (color = "white");
-  return { colorMode, randomMode, eraser, getColor, setColor };
+  return { getColor, setColor };
 };
 
 const sketch = sketcher();
+let randomMode = false;
 
 inputColorEl.addEventListener("input", function () {
   // inputColorEl.value;
@@ -42,7 +40,11 @@ function createSquareGrid(num) {
     boardEl.appendChild(square).className = "box";
     square.addEventListener("mouseenter", function (e) {
       e.target.style.backgroundColor = sketch.getColor();
-      randomColor();
+
+      if (randomMode) {
+        e.target.style.backgroundColor = sketch.setColor(randomColor);
+      }
+      // randomColor();
     });
   }
 }
@@ -55,8 +57,7 @@ colorModeBtn.addEventListener("click", function () {
 });
 
 randomModeBtn.addEventListener("click", function () {
-  sketch.setColor(randomColor());
-  // sketch.getColor();
+  randomMode = true;
 });
 
 eraserBtn.addEventListener("click", function () {
