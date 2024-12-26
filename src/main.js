@@ -1,5 +1,5 @@
 // "use strict";
-// import "./style.css";
+import "./style.css";
 
 // const inputColorEl = document.querySelector(".choose-color");
 // const colorModeBtn = document.querySelector(".color-mode");
