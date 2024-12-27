@@ -26,7 +26,6 @@ const sketcher = function () {
 };
 
 const sketch = sketcher();
-let randomMode = false;
 
 inputColorEl.addEventListener("input", function () {
   // inputColorEl.value;
@@ -34,30 +33,61 @@ inputColorEl.addEventListener("input", function () {
   text.style.color = inputColorEl.value;
   sketch.setColor(inputColorEl.value);
 });
-function createSquareGrid(num) {
-  for (let i = 0; i < num; i++) {
+
+// Sets important constants and variables
+
+// const container = document.getElementById("container");
+let rows = document.getElementsByClassName("gridRow");
+let cells = document.getElementsByClassName("cell");
+
+// Creates a default grid sized 16x16
+function defaultGrid() {
+  makeRows(16);
+  makeColumns(16);
+}
+
+// Takes (rows, columns) input and makes a grid
+function makeRows(rowNum) {
+  // Creates rows
+  for (r = 0; r < rowNum; r++) {
     let square = document.createElement("div");
     boardEl.appendChild(square).className = "box";
-    square.addEventListener("mouseenter", function (e) {
-      e.target.style.backgroundColor = sketch.getColor();
-
-      if (randomMode) {
-        e.target.style.backgroundColor = sketch.setColor(randomColor);
-      }
-      // randomColor();
-    });
   }
 }
-// input type range
-// slusam na event "input"
-createSquareGrid(256);
+
+// Creates columns
+function makeColumns(cellNum) {
+  for (i = 0; i < square.length; i++) {
+    for (j = 0; j < cellNum; j++) {
+      let newCell = document.createElement("div");
+      rows[j].appendChild(newCell).className = "cell";
+    }
+  }
+}
+
+defaultGrid();
+
+// function createSquareGrid(num) {
+//   for (let i = 0; i < num; i++) {
+//     let square = document.createElement("div");
+//     boardEl.appendChild(square).className = "box";
+//     square.addEventListener("mouseenter", function (e) {
+//       e.target.style.backgroundColor = sketch.getColor();
+
+//       // randomColor();
+//     });
+//   }
+// }
+// // input type range
+// // slusam na event "input"
+// createSquareGrid(256);
 
 colorModeBtn.addEventListener("click", function () {
   sketch.getColor();
 });
 
 randomModeBtn.addEventListener("click", function () {
-  randomMode = true;
+  sketch.setColor(randomColor());
 });
 
 eraserBtn.addEventListener("click", function () {
