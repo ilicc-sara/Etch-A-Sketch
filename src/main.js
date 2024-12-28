@@ -47,16 +47,19 @@ inputColorEl.addEventListener("input", function () {
 
 function makeRows(rows, cols) {
   boardEl.innerHTML = "";
-  boardEl.style.gridTemplateColumns = `repeat(${rows}, 1fr)`;
-  boardEl.style.gridTemplateRows = `repeat(${cols}, 1fr)`;
+  boardEl.style.gridTemplateColumns = `repeat(${rows}, minmax(0, 1fr))`;
+  boardEl.style.gridTemplateRows = `repeat(${cols}, minmax(0, 1fr)`;
   for (let c = 0; c < rows * cols; c++) {
     let cell = document.createElement("div");
     cell.innerText = c + 1;
     boardEl.appendChild(cell).className = "box";
+    cell.addEventListener("mouseenter", function (e) {
+      e.target.style.backgroundColor = sketch.getColor();
+    });
   }
 }
 
-makeRows(16, 16);
+makeRows(64, 64);
 
 // defaultGrid();
 
@@ -74,6 +77,15 @@ makeRows(16, 16);
 // // input type range
 // // slusam na event "input"
 // createSquareGrid(256);
+
+const mrezaEl = document.querySelector(".mreza");
+
+const num = document.querySelectorAll(".num");
+
+mrezaEl.addEventListener("input", function () {
+  console.log(mrezaEl.value);
+  num.forEach((num) => (num.textContent = mrezaEl.value));
+});
 
 colorModeBtn.addEventListener("click", function () {
   sketch.getColor();

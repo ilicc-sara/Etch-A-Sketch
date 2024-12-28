@@ -63,17 +63,19 @@ body {
 }
 
 .board-container {
-  height: 400px;
-  width: 400px;
+  height: 480px;
+  width: 480px;
   /* background-color: lightgreen; */
   display: grid;
   /* grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16, 1fr); */
   /* row-gap: 1px;
   column-gap: 1px; */
+  overflow: hidden;
 }
 
 .box {
   border: 0.1px solid rgb(170, 170, 170);
   background-color: white;
+  aspect-ratio: 1;
 }
