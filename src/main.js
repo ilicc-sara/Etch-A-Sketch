@@ -20,11 +20,13 @@ const randomColor = () =>
 
 const sketcher = function () {
   let color = "red";
+  let randomCol = false;
 
   const setColor = (value) => (color = value);
   const getColor = () => color;
+  const enableRandomColor = (value) => (randomCol = value);
 
-  return { getColor, setColor };
+  return { getColor, setColor, enableRandomColor };
 };
 
 const sketch = sketcher();
@@ -56,7 +58,11 @@ function makeRows(rows, cols) {
     cell.innerText = c + 1;
     boardEl.appendChild(cell).className = "box";
     cell.addEventListener("mouseenter", function (e) {
+      // if (sketch.enableRandomColor(true)) {
+      //   e.target.style.backgroundColor = sketch.setColor(randomColor());
+      // } else {
       e.target.style.backgroundColor = sketch.getColor();
+      // }
     });
   }
 }
@@ -83,13 +89,24 @@ makeRows(16, 16);
 graphEl.addEventListener("input", function () {
   makeRows(graphEl.value, graphEl.value);
   num.forEach((num) => (num.textContent = graphEl.value));
+  ////////////////////////////////////////////////////////////////
+  const boxes = document.querySelectorAll(".box");
+  console.log(boxes);
+
+  clearBtn.addEventListener("click", function () {
+    boxes.forEach((box) => (box.style.backgroundColor = "white"));
+  });
+  ////////////////////////////////////////////////////////////////////
 });
 
 colorModeBtn.addEventListener("click", function () {
+  // sketch.enableRandomColor(false);
+  sketch.setColor(inputColorEl.value);
   sketch.getColor();
 });
 
 randomModeBtn.addEventListener("click", function () {
+  // sketch.enableRandomColor(true);
   sketch.setColor(randomColor());
 });
 
@@ -98,6 +115,7 @@ eraserBtn.addEventListener("click", function () {
 });
 
 const boxes = document.querySelectorAll(".box");
+console.log(boxes);
 
 clearBtn.addEventListener("click", function () {
   boxes.forEach((box) => (box.style.backgroundColor = "white"));
