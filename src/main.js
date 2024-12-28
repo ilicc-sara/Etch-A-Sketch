@@ -36,36 +36,29 @@ inputColorEl.addEventListener("input", function () {
 
 // Sets important constants and variables
 
-// const container = document.getElementById("container");
-let rows = document.getElementsByClassName("gridRow");
-let cells = document.getElementsByClassName("cell");
-
-// Creates a default grid sized 16x16
-function defaultGrid() {
-  makeRows(16);
-  makeColumns(16);
-}
-
 // Takes (rows, columns) input and makes a grid
-function makeRows(rowNum) {
-  // Creates rows
-  for (r = 0; r < rowNum; r++) {
-    let square = document.createElement("div");
-    boardEl.appendChild(square).className = "box";
+// function makeRows(rowNum) {
+//   // Creates rows
+//   for (r = 0; r < rowNum; r++) {
+//     let square = document.createElement("div");
+//     boardEl.appendChild(square).className = "box";
+//   }
+// }
+
+function makeRows(rows, cols) {
+  boardEl.innerHTML = "";
+  boardEl.style.gridTemplateColumns = `repeat(${rows}, 1fr)`;
+  boardEl.style.gridTemplateRows = `repeat(${cols}, 1fr)`;
+  for (let c = 0; c < rows * cols; c++) {
+    let cell = document.createElement("div");
+    cell.innerText = c + 1;
+    boardEl.appendChild(cell).className = "box";
   }
 }
 
-// Creates columns
-function makeColumns(cellNum) {
-  for (i = 0; i < square.length; i++) {
-    for (j = 0; j < cellNum; j++) {
-      let newCell = document.createElement("div");
-      rows[j].appendChild(newCell).className = "cell";
-    }
-  }
-}
+makeRows(16, 16);
 
-defaultGrid();
+// defaultGrid();
 
 // function createSquareGrid(num) {
 //   for (let i = 0; i < num; i++) {
