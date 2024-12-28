@@ -58,6 +58,8 @@ function makeRows(rows, cols) {
     cell.innerText = c + 1;
     boardEl.appendChild(cell).className = "box";
     cell.addEventListener("mouseenter", function (e) {
+      // ako je random mode true postavi mi boju na random boju a zatim oboji div
+      // u suprotnom samo oboji div
       // if (sketch.enableRandomColor(true)) {
       //   e.target.style.backgroundColor = sketch.setColor(randomColor());
       // } else {
@@ -85,18 +87,15 @@ makeRows(16, 16);
 // // input type range
 // // slusam na event "input"
 // createSquareGrid(256);
+let boxes = document.querySelectorAll(".box");
 
-graphEl.addEventListener("input", function () {
-  makeRows(graphEl.value, graphEl.value);
-  num.forEach((num) => (num.textContent = graphEl.value));
+graphEl.addEventListener("change", function (e) {
+  // console.log(e.target.value);
+  const value = e.target.value;
+  makeRows(value, value);
+  num.forEach((num) => (num.textContent = value));
   ////////////////////////////////////////////////////////////////
-  const boxes = document.querySelectorAll(".box");
-  console.log(boxes);
-
-  clearBtn.addEventListener("click", function () {
-    boxes.forEach((box) => (box.style.backgroundColor = "white"));
-  });
-  ////////////////////////////////////////////////////////////////////
+  boxes = document.querySelectorAll(".box");
 });
 
 colorModeBtn.addEventListener("click", function () {
@@ -113,9 +112,6 @@ randomModeBtn.addEventListener("click", function () {
 eraserBtn.addEventListener("click", function () {
   sketch.setColor("white");
 });
-
-const boxes = document.querySelectorAll(".box");
-console.log(boxes);
 
 clearBtn.addEventListener("click", function () {
   boxes.forEach((box) => (box.style.backgroundColor = "white"));
