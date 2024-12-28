@@ -10,6 +10,8 @@ const text = document.querySelector(".text");
 
 const boardEl = document.querySelector(".board-container");
 
+const graphEl = document.querySelector(".graph");
+const num = document.querySelectorAll(".num");
 const randomNum = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -59,7 +61,7 @@ function makeRows(rows, cols) {
   }
 }
 
-makeRows(64, 64);
+makeRows(16, 16);
 
 // defaultGrid();
 
@@ -78,13 +80,9 @@ makeRows(64, 64);
 // // slusam na event "input"
 // createSquareGrid(256);
 
-const mrezaEl = document.querySelector(".mreza");
-
-const num = document.querySelectorAll(".num");
-
-mrezaEl.addEventListener("input", function () {
-  console.log(mrezaEl.value);
-  num.forEach((num) => (num.textContent = mrezaEl.value));
+graphEl.addEventListener("input", function () {
+  makeRows(graphEl.value, graphEl.value);
+  num.forEach((num) => (num.textContent = graphEl.value));
 });
 
 colorModeBtn.addEventListener("click", function () {
