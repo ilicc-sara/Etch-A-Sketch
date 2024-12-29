@@ -24,9 +24,11 @@ const sketcher = function () {
 
   const setColor = (value) => (color = value);
   const getColor = () => color;
-  const enableRandomColor = (value) => (randomCol = value);
 
-  return { getColor, setColor, enableRandomColor };
+  const getRandomCol = () => randomCol;
+  const setRandomCol = (value) => (randomCol = value);
+
+  return { getColor, setColor, getRandomCol, setRandomCol };
 };
 
 const sketch = sketcher();
@@ -36,6 +38,12 @@ inputColorEl.addEventListener("input", function () {
   console.log(inputColorEl.value);
   text.style.color = inputColorEl.value;
   sketch.setColor(inputColorEl.value);
+  sketch.setRandomCol(false);
+
+  ////////////////////////////////////////////////////
+  colorModeBtn.classList.add("active");
+  randomModeBtn.classList.remove("active");
+  eraserBtn.classList.remove("active");
 });
 
 // Sets important constants and variables
@@ -58,12 +66,16 @@ function makeRows(rows, cols) {
     cell.innerText = c + 1;
     boardEl.appendChild(cell).className = "box";
     cell.addEventListener("mouseenter", function (e) {
-      // ako je random mode true postavi mi boju na random boju a zatim oboji div
-      // u suprotnom samo oboji div
-      // if (sketch.enableRandomColor(true)) {
-      //   e.target.style.backgroundColor = sketch.setColor(randomColor());
-      // } else {
-      e.target.style.backgroundColor = sketch.getColor();
+      if (sketch.getRandomCol() === true) {
+        e.target.style.backgroundColor = sketch.setColor(randomColor());
+      } else {
+        // ako je random mode true postavi mi boju na random boju a zatim oboji div
+        // u suprotnom samo oboji div
+        // if (sketch.enableRandomColor(true)) {
+        //   e.target.style.backgroundColor = sketch.setColor(randomColor());
+        // } else {
+        e.target.style.backgroundColor = sketch.getColor();
+      }
       // }
     });
   }
@@ -102,15 +114,29 @@ colorModeBtn.addEventListener("click", function () {
   // sketch.enableRandomColor(false);
   sketch.setColor(inputColorEl.value);
   sketch.getColor();
+  ////////////////////////////////////////////////////
+  colorModeBtn.classList.toggle("active");
+  randomModeBtn.classList.remove("active");
+  eraserBtn.classList.remove("active");
 });
 
 randomModeBtn.addEventListener("click", function () {
   // sketch.enableRandomColor(true);
-  sketch.setColor(randomColor());
+  // sketch.setColor(randomColor());
+  sketch.setRandomCol(true);
+  ///////////////////////////////////////////////////
+  randomModeBtn.classList.toggle("active");
+  colorModeBtn.classList.remove("active");
+  eraserBtn.classList.remove("active");
 });
 
 eraserBtn.addEventListener("click", function () {
+  sketch.setRandomCol(false);
   sketch.setColor("white");
+  ////////////////////////////////////////////////////
+  eraserBtn.classList.toggle("active");
+  colorModeBtn.classList.remove("active");
+  randomModeBtn.classList.remove("active");
 });
 
 clearBtn.addEventListener("click", function () {
